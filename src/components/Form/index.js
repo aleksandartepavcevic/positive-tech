@@ -27,7 +27,7 @@ const Form = ({ setWeatherDetails }) => {
     try {
       setLoading(true);
       const units = "metric";
-      const url = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&cnt=3&units=${units}&appid=${API_KEY}`;
+      const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&cnt=3&units=${units}&appid=${API_KEY}`;
       const res = await axios.get(url);
       setWeatherDetails(res.data.daily);
       setLoading(false);
@@ -38,7 +38,7 @@ const Form = ({ setWeatherDetails }) => {
 
   const getOptions = useCallback(async (location, country, limit = 5) => {
     try {
-      const url = `http://api.openweathermap.org/geo/1.0/direct?q=${location},${country}&limit=${limit}&appid=${API_KEY}`;
+      const url = `https://api.openweathermap.org/geo/1.0/direct?q=${location},${country}&limit=${limit}&appid=${API_KEY}`;
       const res = await axios.get(url);
       return res;
     } catch (error) {
