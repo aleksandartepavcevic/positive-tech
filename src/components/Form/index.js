@@ -140,7 +140,7 @@ const CountrySelectStyling = css`
 
 const Container = motion(styled.div`
   position: relative;
-  width: clamp(250px, 26.042vw, 700px);
+  width: clamp(250px, 38.042vw, 500px);
   display: flex;
   align-items: center;
   background-color: #fff;
