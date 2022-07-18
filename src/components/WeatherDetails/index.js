@@ -9,18 +9,6 @@ const WeatherDetails = ({ data }) => {
 
   const getAverageTemp = (min, max) => (min + max) / 2;
 
-  const container = {
-    initial: {
-      opacity: 0,
-    },
-    animate: {
-      opacity: 1,
-    },
-    exit: {
-      opacity: 0,
-    },
-  };
-
   const list = {
     initial: {
       opacity: 0,
