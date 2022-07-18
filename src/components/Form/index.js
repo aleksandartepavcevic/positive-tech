@@ -38,9 +38,18 @@ const Form = ({ setWeatherDetails }) => {
 
   const getOptions = useCallback(async (location, country, limit = 5) => {
     try {
+      setLoading(true);
       const url = `https://api.openweathermap.org/geo/1.0/direct?q=${location},${country}&limit=${limit}&appid=${API_KEY}`;
       const res = await axios.get(url);
-      return res;
+      setLoading(false);
+      const options = res.data.map((el, i) => ({
+        id: `${el.name}-${i}`,
+        lat: el.lat,
+        lon: el.lon,
+        value: `${el.name}`,
+        label: `${el.name}`,
+      }));
+      setLocationOptions(options);
     } catch (error) {
       throw new Error(error);
     }
@@ -56,27 +65,7 @@ const Form = ({ setWeatherDetails }) => {
   };
 
   useEffect(() => {
-    if (debouncedLocation) {
-      setLoading(true);
-      getOptions(debouncedLocation, country)
-        .then((res) => {
-          setLoading(false);
-          const options = res.data.map((el, i) => ({
-            id: `${el.name}-${i}`,
-            lat: el.lat,
-            lon: el.lon,
-            value: `${el.name}`,
-            label: `${el.name}`,
-          }));
-          setLocationOptions(options);
-        })
-        .catch((error) => {
-          throw new Error(error);
-        });
-    } else {
-      setLoading(false);
-      setLocationOptions(null);
-    }
+    if (debouncedLocation) getOptions(debouncedLocation, country);
   }, [debouncedLocation, getOptions, country]);
 
   const locationSelectEndAdornment = loading ? (
